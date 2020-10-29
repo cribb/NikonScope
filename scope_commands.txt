@@ -1,0 +1,20 @@
+NikonScope Commands
+Note: This is not a comprehensive list.
+
+Prefixes
+n error
+a acknowledge
+o okay
+c command
+
+Commands
+HAR get filter block position
+HDM set filter block position
+FDM set excitation filter block position
+FAR get excitation filter block position
+FCR is excitation filter busy?
+SMV set focus position
+SPR get focus position
+SJS set focus stepsize
+RAR get nosepiece objective
+RDM set nosepiece objective
