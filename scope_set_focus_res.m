@@ -12,16 +12,16 @@ flushinput(obj1)
 % Increase the timeout to avoid flooding the buffer
 set(obj1, 'Timeout', 100.0);
 
-% Set the 'recieved' variable to false 
-recieved = false;
+% Set the 'received' variable to false 
+received = false;
 
 % Reads the input
-while ~recieved    
+while ~received    
     command = strcat('cSJS', num2str(res));
     data = query(obj1, command, '%s\n' ,'%s');
     if strcmp(data,'oSJS') && (scope_get_focus_stepsize(obj1) == res)
         disp('Focus Step Size has been set')
-        recieved = true;
+        received = true;
     else
         flushinput(obj1)
         disp('Resending command...')

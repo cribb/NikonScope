@@ -9,7 +9,7 @@ flushinput(obj1)
 % Increase the timeout to avoid flooding the buffer
 set(obj1, 'Timeout', 100.0);
 
-% Set the 'recieved' variable to false 
+% Set the 'received' variable to false 
 received = false;
 
 % Reads the input

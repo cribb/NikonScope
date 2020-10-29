@@ -1,20 +1,30 @@
-function voltage = scope_get_lamp_voltage(obj1)
+function voltage = scope_get_lamp_voltage(scope)
 % SCOPE_GET_LAMP_VOLTAGE returns the voltage of the lamp
+%
+% voltage = scope_get_lamp_voltage(scope)
+%
+% Inputs
+%   scope: handle to microscope object
+%
+% Outputs 
+%   voltage: current voltage of the brightfield lamp
+%
+
 
 % Flush data in input buffer
-flushinput(obj1)
+flushinput(scope)
 
-% Set the 'recieved' variable to false 
-recieved = false;
+% Set the 'received' variable to false 
+received = false;
 
 % Reads the input
-while ~recieved    
-    data = query(obj1, 'rLVR', '%s\n' ,'%s');
+while ~received    
+    data = query(scope, 'rLVR', '%s\n' ,'%s');
     if strcmp(data(1:4),'aLVR')
         voltage = str2double(data(5:end));
-        recieved = true;
+        received = true;
     else
-        flushinput(obj1)
+        flushinput(scope)
         disp('Resending command...')
     end
 end

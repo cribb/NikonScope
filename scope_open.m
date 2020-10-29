@@ -1,29 +1,39 @@
-function obj1 = scope_open
-% SCOPE_OPEN creates a new microscope object
+function scope = scope_open(ComPort)
+% SCOPE_OPEN connects to the NikonScope and outputs a handle
+%
+% scope = scope_open(ComPort)
+% 
+% Inputs
+%   ComPort: Serial communications port for Nikon Scope (try 'COM4')
+%
+% Outpus
+%   scope: handle to microscope object
+%
+
 
 % Find a serial port object.
-obj1 = instrfind('Type', 'serial', ...
-                 'Port', 'COM2', ...
-                 'Tag', '' );
+scope = instrfind('Type', 'serial', ...
+                  'Port', ComPort, ...
+                  'Tag', '' );
 
 % Create the serial port object if it does not exist
 % otherwise use the object that was found.
 % Note: Change from 'COM2' if connected to different port!
-if isempty(obj1)
-    obj1 = serial('COM2', 'BaudRate', 9600, ...
-                          'DataBits', 8, ...
-                          'Parity', 'none', ...
-                          'StopBits', 1); 
+if isempty(scope)
+    scope = serial(ComPort, 'BaudRate', 9600, ...
+                            'DataBits', 8, ...
+                            'Parity', 'none', ...
+                            'StopBits', 1); 
 else
-    fclose(obj1);
-    obj1 = obj1(1);
+    fclose(scope);
+    scope = scope(1);
 end
 
 % Connect to instrument object, obj1.
-fopen(obj1);
+fopen(scope);
 
 % Configure instrument object, obj1 -> set terminator
-set(obj1, 'Terminator', {'CR/LF','CR'});
+set(scope, 'Terminator', {'CR/LF','CR'});
 
 % Increase the timeout to avoid flooding the buffer
-set(obj1, 'Timeout', 100.0);
+set(scope, 'Timeout', 100.0);

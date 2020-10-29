@@ -9,16 +9,16 @@ function res = scope_get_focus_res(obj1)
 % Flush data in input buffer
 flushinput(obj1)
 
-% Set the 'recieved' variable to false 
-recieved = false;
+% Set the 'received' variable to false 
+received = false;
 
 % Reads the input
-while ~recieved    
+while ~received    
     data = query(obj1, 'rSJR', '%s\n' ,'%s');
     disp(data);
     if strcmp(data(1:4),'aSJR')
         res = str2double(data(5:end));
-        recieved = true;
+        received = true;
     else
         flushinput(obj1)
         disp('Resending command...')

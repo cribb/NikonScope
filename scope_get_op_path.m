@@ -1,21 +1,29 @@
-function path = scope_get_op_path(obj1)
-% SCOPE_GET_OP_PATH gets the optical path position of the device as an
-% integer
+function path = scope_get_op_path(scope)
+% SCOPE_GET_OP_PATH gets the optical path position of the device as an integer
+%
+% path = scope_get_op_path(scope)
+%
+% Inputs
+%   scope: handle to microscope object
+%
+% Outputs
+%   path: Number/ID that corresponds to current optical path (camera)
+%
 
 % Flush data in input buffer
-flushinput(obj1)
+flushinput(scope)
 
-% Set the 'recieved' variable to false 
-recieved = false;
+% Set the 'received' variable to false 
+received = false;
 
 % Reads the input
-while ~recieved    
-    data = query(obj1, 'rPAR', '%s\n' ,'%s');
+while ~received    
+    data = query(scope, 'rPAR', '%s\n' ,'%s');
     if strcmp(data(1:4),'aPAR')
         path = str2double(data(5:end));
-        recieved = true;
+        received = true;
     else
-        flushinput(obj1)
+        flushinput(scope)
         disp('Resending command...')
     end
 end

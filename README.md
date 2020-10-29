@@ -1,4 +1,4 @@
-# Using NikonScope (Last Updated 6/17/2020)
+# Using NikonScope (Last Updated 10/29/2020)
 
 ## A Note on Hardware
 
@@ -84,6 +84,28 @@ where `path` is the path number of the optical path.
 To change the optical path you are on, run
 
 `scope_set_op_path(scope, path)`
+
+## Selecting the Objective Lens (nosepiece)
+
+To get the current objective lens position (ID) in the light path, run
+
+`scope_get_nosepiece(scope)`
+
+To engage a new objective lens, run
+
+`scope_set_nosepiece(scope, LensNumber)
+
+## Selecting a filter block/set
+
+To get the current position (ID) of the filter block/set engaged in the light path, run
+
+`scope_get_filterblock(scope)`
+
+To engage a new objective lens, run
+
+`scope_set_filterblock(scope, FilterNumber)
+
+
 
 ## Closing Connection to the Microscope
 

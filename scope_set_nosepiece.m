@@ -1,26 +1,32 @@
-function scope_set_nosepiece(obj1, path)
-% SCOPE_SET_OP_PATH sets the objective turret to 'path', which is an integer location
+function scope_set_nosepiece(scope, LensNumber)
+% SCOPE_SET_NOSEPIECE sets the imaging turret to a new objective lens
+%
+% scope_set_nosepiece(scope, LensNumber)
+%
+% Inputs
+%   scope: handle to microscope object
+%   LensNumber: number/ID location for desired microscope objective 
 %
 
 % Flush data in input buffer
-flushinput(obj1)
+flushinput(scope)
 
 % Increase the timeout to avoid flooding the buffer
-set(obj1, 'Timeout', 200.0);
+set(scope, 'Timeout', 200.0);
 
-% Set the 'recieved' variable to false 
-recieved = false;
+% Set the 'received' variable to false 
+received = false;
 
 % Reads the input
-while ~recieved    
-    command = strcat('cRDM', num2str(path));
-    data = query(obj1, command, '%s\n' ,'%s');
+while ~received    
+    command = strcat('cRDM1', num2str(LensNumber));
+    data = query(scope, command, '%s\n' ,'%s');
 %     fprintf(' %s, ', data);
-    if contains(data,'nRDM') && (scope_get_nosepiece(obj1) == path)
-        disp('Turret objective has been set')
-        recieved = true;
+    if contains(data,'oRDM') && (scope_get_nosepiece(scope) == LensNumber)
+%         disp('Turret objective has been set')
+        received = true;
     else
-        flushinput(obj1)
-%         disp('Resending command...')
+        flushinput(scope)
+        disp('Resending command...')
     end
 end
