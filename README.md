@@ -1,4 +1,4 @@
-# Using NikonScope (Last Updated 10/29/2020)
+# Using NikonScope (Last Updated 6/17/2020)
 
 ## A Note on Hardware
 
@@ -47,7 +47,7 @@ an error will result.
 The values that the focus position can take range from 0 to somewhere in the 10000s range. Since this range is very large, it is not practical to manually 
 key in the values to find the optimal focus manually. It is better to run the following autofocus routine below:
 
-`focus_scores = ba_testautofocus(scope, [min_focus_val max_focus_val], stepsize, exptime)`
+`focus_scores = ba_findfocus(scope, [min_focus_val max_focus_val], stepsize, exptime)`
 
 The outputted graph will indicate which focus position has the best focus, which you will have to manually move to. Note that the above function is made 
 to handle images of flourescent beads when viewed using the LED driver, NOT for imaging fiducial markings under the scope lamp. 
@@ -84,28 +84,6 @@ where `path` is the path number of the optical path.
 To change the optical path you are on, run
 
 `scope_set_op_path(scope, path)`
-
-## Selecting the Objective Lens (nosepiece)
-
-To get the current objective lens position (ID) in the light path, run
-
-`scope_get_nosepiece(scope)`
-
-To engage a new objective lens, run
-
-`scope_set_nosepiece(scope, LensNumber)
-
-## Selecting a filter block/set
-
-To get the current position (ID) of the filter block/set engaged in the light path, run
-
-`scope_get_filterblock(scope)`
-
-To engage a new objective lens, run
-
-`scope_set_filterblock(scope, FilterNumber)
-
-
 
 ## Closing Connection to the Microscope
 
