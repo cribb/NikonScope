@@ -21,7 +21,7 @@ tol = 0.5;
 received = false;
 
 % Makes sure that the voltage called for is within bounds
-if (voltage > 12) || (voltage < 3)
+if (voltage > 12) || (voltage < 2)
     error('Voltage value not within bounds of device')
 end
 
